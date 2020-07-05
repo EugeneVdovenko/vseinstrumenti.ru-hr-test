@@ -2,16 +2,28 @@
 
 namespace App\Entities;
 
+use Doctrine\ORM\Annotation as ORM;
+
 /**
  * Сущность с данными заказа
- *
  * @package App\Entities
+ *
+ * @ORM\Entity
+ * @ORM\Table(name="orders")
  */
 class Order implements \JsonSerializable {
-    /** @var int */
+    /**
+     * @var int
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
+     */
     protected $id;
 
-    /** @var int */
+    /**
+     * @var int
+     * @ORM\Column(type="integer")
+     */
     protected $status;
 
     /**

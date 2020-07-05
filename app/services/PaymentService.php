@@ -16,16 +16,18 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @package App\Services
  */
-class PaymentService
+class PaymentService extends AbstractService
 {
     /** @var Client */
     protected $client;
 
-    public function __construct()
+    public function __construct($em)
     {
         $this->client = new Client([
             'base_uri' => 'https://yandex.ru',
         ]);
+
+        parent::__construct($em);
     }
 
     /**
@@ -40,10 +42,10 @@ class PaymentService
 
         if ($order->getStatus() === OrderStatus::STATUS_NEW) {
             $payment = new Payment();
-
-            $payment->setId(mt_rand(1, 999));
             $payment->setStatus(PaymentStatus::STATUS_WAIT);
             $payment->setOrderId($order->getId());
+            $this->em->persist($payment);
+            $this->em->flush();
         }
 
         return $payment;
@@ -59,14 +61,24 @@ class PaymentService
     {
         try {
             $response = $this->client->get('/', [
-                'form_params' => [
+                'query' => [
                     'order' => $payment->getOrderId(),
                     'amount' => (mt_rand(10000, 99999)/100),
                 ],
             ]);
 
-            return ($response->getStatusCode() === Response::HTTP_OK);
+            if ($response->getStatusCode() === Response::HTTP_OK) {
+                $payment->setStatus(PaymentStatus::STATUS_SUCCEED);
+                $this->em->flush();
+                return true;
+            }
+
+            $payment->setStatus(PaymentStatus::STATUS_FAIL);
+            $this->em->flush();
+            return false;
         } catch (GuzzleException $e) {
+            $payment->setStatus(PaymentStatus::STATUS_FAIL);
+            $this->em->flush();
             return false;
         }
     }

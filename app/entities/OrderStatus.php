@@ -4,7 +4,6 @@ namespace App\Entities;
 
 /**
  * Сущности статусов заказа
- *
  * @package App\Entities
  */
 class OrderStatus {

@@ -2,19 +2,34 @@
 
 namespace App\Entities;
 
+use Doctrine\ORM\Annotation as ORM;
+
 /**
  * Сущность с данными оплаты
- *
  * @package App\Entities
+ *
+ * @ORM\Entity
+ * @ORM\Table(name="payments")
  */
 class Payment implements \JsonSerializable {
-    /** @var int */
+    /**
+     * @var int
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
+     */
     protected $id;
 
-    /** @var int */
+    /**
+     * @var int
+     * @ORM\Column(type="integer")
+     */
     protected $status;
 
-    /** @var int */
+    /**
+     * @var int
+     * @ORM\Column(type="integer")
+     */
     protected $order_id;
 
     /**

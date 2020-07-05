@@ -2,19 +2,34 @@
 
 namespace App\Entities;
 
+use Doctrine\ORM\Annotation as ORM;
+
 /**
  * Сущность с данными товара
- *
  * @package App\Entities
+ *
+ * @ORM\Entity
+ * @ORM\Table(name="products")
  */
 class Product implements \JsonSerializable {
-    /** @var int */
+    /**
+     * @var int
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
+     */
     protected $id;
 
-    /** @var string */
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     */
     protected $title;
 
-    /** @var float */
+    /**
+     * @var float
+     * @ORM\Column(type="float")
+     */
     protected $price;
 
     /**

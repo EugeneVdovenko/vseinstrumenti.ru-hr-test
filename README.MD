@@ -1,3 +1,4 @@
+## Задание
 Необходимо написать упрощённое REST API.
 
 Каркас приложения, должен быть стандартный MVC, реализованный через Controller, Entity, Repository, Service.
@@ -25,3 +26,40 @@ API должно содержать несколько методов:
 - symfony/dependency-injection
 - doctrine/orm
 - guzzlehttp/guzzle
+
+
+## Установка:
+
+### Запуск приложения
+В корне проекта (где лежит файл `docker-compose.yml`)
+```
+docker-compose up -d
+```
+
+### Заходим в консоль
+```
+docker-compose exec php bash
+```
+
+### Установка зависимостей
+В каталоге `/app` запускаем команду:
+```
+composer install
+```
+
+### Создание базы данных
+В каталоге `/app` запускаем команду:
+```
+vendor/bin/doctrine orm:schema-tool:create
+```
+
+### Обновление схемы базы данных
+```
+vendor/bin/doctrine orm:schema-tool:update --force
+```
+
+### Удаление схемы базы данных
+```
+vendor/bin/doctrine orm:schema-tool:drop --force
+```
+

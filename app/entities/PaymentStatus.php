@@ -2,9 +2,10 @@
 
 namespace App\Entities;
 
+use Doctrine\ORM\Annotation as ORM;
+
 /**
  * Сущности статусов оплаты
- *
  * @package App\Entities
  */
 class PaymentStatus {

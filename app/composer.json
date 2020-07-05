@@ -12,7 +12,8 @@
   "require": {
     "symfony/routing": "^5.2@dev",
     "symfony/http-foundation": "^5.2@dev",
-    "guzzlehttp/guzzle": "^7.0"
+    "guzzlehttp/guzzle": "^7.0",
+    "doctrine/orm": "^3.0@dev"
   },
   "autoload": {
     "psr-4": {

@@ -11,7 +11,7 @@ use App\Entities\Product;
  *
  * @package App\Services
  */
-class OrderService
+class OrderService extends AbstractService
 {
     /**
      * Поиск заказа по ID
@@ -21,9 +21,8 @@ class OrderService
      */
     public function getOrder($id)
     {
-        $order = new Order();
-        $order->setId($id);
-        $order->setStatus(OrderStatus::STATUS_NEW);
+        /** @var Order $order */
+        $order = $this->em->getRepository(Order::class)->findOneBy(['id' => $id]);
 
         return $order;
     }
@@ -37,9 +36,10 @@ class OrderService
     public function createOrder($products)
     {
         $order = new Order();
-
-        $order->setId(mt_rand(1, 100));
         $order->setStatus(OrderStatus::STATUS_NEW);
+
+        $this->em->persist($order);
+        $this->em->flush();
 
         return $order;
     }

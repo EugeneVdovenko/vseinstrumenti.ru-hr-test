@@ -9,7 +9,7 @@ use App\Entities\Product;
  *
  * @package App\Services
  */
-class ProductService
+class ProductService extends AbstractService
 {
     /**
      * Генерация товаров для теста
@@ -23,11 +23,11 @@ class ProductService
 
         for ($i = 1; $i <= $num; $i++) {
             $product = new Product();
-            $product->setId($i);
-            $product->setTitle("Товар {$i}");
+            $product->setTitle("Товар " . mt_rand(1, 9999999));
             $product->setPrice(mt_rand(1000, 9999)/100);
+            $this->em->persist($product);
+            $this->em->flush();
             $products[] = $product;
-            unset($product);
         }
 
         return $products;
@@ -41,9 +41,12 @@ class ProductService
      */
     public function getProducts($ids = [])
     {
-        // товары для теста создания заказа
         /** @var Product[] $products */
-        $products = $this->generate(mt_rand(1, 9));
+        if ($ids) {
+            $products = $this->em->getRepository(Product::class)->findBy(['id' => $ids]);
+        } else {
+            $products = $this->em->getRepository(Product::class)->findAll();
+        }
 
         return $products;
     }
