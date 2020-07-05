@@ -27,6 +27,15 @@ class Order implements \JsonSerializable {
     protected $status;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entities\Product", inversedBy="orders")
+     * @ORM\JoinTable(name="orders_products",
+     *      joinColumns={@ORM\JoinColumn(name="order_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")}
+     *      )
+     */
+    protected $products;
+
+    /**
      * @return int
      */
     public function getId()

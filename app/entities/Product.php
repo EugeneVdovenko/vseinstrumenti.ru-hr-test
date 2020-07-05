@@ -33,6 +33,11 @@ class Product implements \JsonSerializable {
     protected $price;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entities\Order", inversedBy="products")
+     */
+    protected $orders;
+
+    /**
      * @return int
      */
     public function getId()
