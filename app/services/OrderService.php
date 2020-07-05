@@ -22,6 +22,8 @@ class OrderService
     public function getOrder($id)
     {
         $order = new Order();
+        $order->setId($id);
+        $order->setStatus(OrderStatus::STATUS_NEW);
 
         return $order;
     }

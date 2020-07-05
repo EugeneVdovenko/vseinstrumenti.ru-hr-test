@@ -43,10 +43,10 @@ class PaymentController {
         /** @var Payment $payment */
         $payment = $this->paymentService->createPayment($order);
 
-        if ($this->paymentService->sendPayment($payment)) {
+        if ($payment && $this->paymentService->sendPayment($payment)) {
             return new JsonResponse(['status' => 'ok', 'payment_id' => $payment->getId()]);
         }
 
-        return new JsonResponse(['status' => 'fail', 'payment_id' => $payment->getId()], JsonResponse::HTTP_BAD_REQUEST);
+        return new JsonResponse(['status' => 'fail', ], JsonResponse::HTTP_BAD_REQUEST);
     }
 }

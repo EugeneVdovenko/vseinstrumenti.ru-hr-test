@@ -36,7 +36,7 @@ $route = (new Route('/order/create/', ['_controller' => OrderController::class, 
     ->setMethods(Request::METHOD_POST);
 $routes->add('create-order', $route);
 
-$route = (new Route('/payment/create/', ['_controller' => PaymentController::class, '_action' => 'createPayment']))
+$route = (new Route('/payment/create/', ['_controller' => PaymentController::class, '_action' => 'create']))
     ->setMethods(Request::METHOD_POST);
 $routes->add('create-payment', $route);
 

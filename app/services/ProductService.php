@@ -41,10 +41,8 @@ class ProductService
      */
     public function getProducts($ids = [])
     {
-        /** @var Product[] $products */
-        $products = [];
-
         // товары для теста создания заказа
+        /** @var Product[] $products */
         $products = $this->generate(mt_rand(1, 9));
 
         return $products;
