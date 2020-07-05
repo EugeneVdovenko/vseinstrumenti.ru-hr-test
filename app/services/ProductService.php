@@ -44,6 +44,9 @@ class ProductService
         /** @var Product[] $products */
         $products = [];
 
+        // товары для теста создания заказа
+        $products = $this->generate(mt_rand(1, 9));
+
         return $products;
     }
 }

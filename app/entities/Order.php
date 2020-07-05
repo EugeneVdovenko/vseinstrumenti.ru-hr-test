@@ -11,7 +11,7 @@ class Order implements \JsonSerializable {
     /** @var int */
     protected $id;
 
-    /** @var OrderStatus */
+    /** @var int */
     protected $status;
 
     /**
@@ -31,7 +31,7 @@ class Order implements \JsonSerializable {
     }
 
     /**
-     * @return OrderStatus
+     * @return int
      */
     public function getStatus()
     {
@@ -39,7 +39,7 @@ class Order implements \JsonSerializable {
     }
 
     /**
-     * @param OrderStatus $status
+     * @param int $status
      */
     public function setStatus($status)
     {

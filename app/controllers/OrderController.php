@@ -35,7 +35,7 @@ class OrderController {
      * @param Request $request
      * @return JsonResponse
      */
-    public function createOrder(Request $request)
+    public function create(Request $request)
     {
         $ids = $request->request->get('products');
 
@@ -45,6 +45,6 @@ class OrderController {
         /** @var Order $order */
         $order = $this->orderService->createOrder($products);
 
-        return new JsonResponse(['status' => 'ok', 'id' => $order->getId()]);
+        return new JsonResponse(['status' => 'ok', 'order' => ['id' => $order->getId(), 'products' => $products]]);
     }
 }

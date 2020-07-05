@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Entities\Order;
+use App\Entities\OrderStatus;
 use App\Entities\Product;
 
 /**
@@ -34,6 +35,9 @@ class OrderService
     public function createOrder($products)
     {
         $order = new Order();
+
+        $order->setId(mt_rand(1, 100));
+        $order->setStatus(OrderStatus::STATUS_NEW);
 
         return $order;
     }

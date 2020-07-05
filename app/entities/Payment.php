@@ -11,7 +11,7 @@ class Payment implements \JsonSerializable {
     /** @var int */
     protected $id;
 
-    /** @var PaymentStatus */
+    /** @var int */
     protected $status;
 
     /** @var int */
@@ -34,7 +34,7 @@ class Payment implements \JsonSerializable {
     }
 
     /**
-     * @return PaymentStatus
+     * @return int
      */
     public function getStatus()
     {
@@ -42,7 +42,7 @@ class Payment implements \JsonSerializable {
     }
 
     /**
-     * @param PaymentStatus $status
+     * @param int $status
      */
     public function setStatus($status)
     {

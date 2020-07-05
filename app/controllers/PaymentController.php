@@ -35,7 +35,7 @@ class PaymentController {
      * @param Request $request
      * @return JsonResponse
      */
-    public function createPayment(Request $request)
+    public function create(Request $request)
     {
         /** @var Order $order */
         $order = $this->orderService->getOrder($request->request->get('orderId'));

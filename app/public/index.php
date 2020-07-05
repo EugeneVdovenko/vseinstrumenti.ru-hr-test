@@ -5,9 +5,12 @@ use App\Controllers\InitializeController;
 use App\Controllers\OrderController;
 use App\Controllers\PaymentController;
 use App\Services\ProductService;
+use App\Services\OrderService;
+use App\Services\PaymentService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Exception\MethodNotAllowedException;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\RequestContext;
@@ -44,10 +47,12 @@ $matcher = new UrlMatcher($routes, $context);
 
 try {
     $params = $matcher->matchRequest($request);
-    $controller = new $params['_controller'](new ProductService);
-    $response = call_user_func_array([$controller, $params['_action']], [[$request]]);
+    $controller = new $params['_controller'](new ProductService, new OrderService, new PaymentService);
+    $response = call_user_func_array([$controller, $params['_action']], [$request]);
 } catch (ResourceNotFoundException $e) {
     $response = new JsonResponse(['status' => 'Not Found'], JsonResponse::HTTP_NOT_FOUND);
+} catch (MethodNotAllowedException $e) {
+    $response = new JsonResponse(['status' => 'Method Not Allowed'], JsonResponse::HTTP_METHOD_NOT_ALLOWED);
 }
 
 if ($response instanceof Response) {
