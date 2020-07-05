@@ -3,6 +3,7 @@
 namespace App\Entities;
 
 use Doctrine\ORM\Annotation as ORM;
+use Doctrine\ORM\PersistentCollection;
 
 /**
  * Сущность с данными заказа
@@ -73,5 +74,21 @@ class Order implements \JsonSerializable {
     public function jsonSerialize()
     {
         return get_object_vars($this);
+    }
+
+    /**
+     * @return PersistentCollection
+     */
+    public function getProducts()
+    {
+        return $this->products;
+    }
+
+    /**
+     * @param Product[] $products
+     */
+    public function setProducts($products)
+    {
+        $this->products = $products;
     }
 }

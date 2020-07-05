@@ -69,6 +69,10 @@ class PaymentService extends AbstractService
 
             if ($response->getStatusCode() === Response::HTTP_OK) {
                 $payment->setStatus(PaymentStatus::STATUS_SUCCEED);
+                // тут костыль, т.к. Doctrine c SQLite в отношениях One-to-One подглючивает
+                /** @var Order $order */
+                $order = $this->em->getRepository(Order::class)->findOneBy(['id' => $payment->getOrderId()]);
+                $order->setStatus(OrderStatus::STATUS_PAID);
                 $this->em->flush();
                 return true;
             }

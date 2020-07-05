@@ -63,3 +63,34 @@ vendor/bin/doctrine orm:schema-tool:update --force
 vendor/bin/doctrine orm:schema-tool:drop --force
 ```
 
+## Запросы
+
+- создание товаров
+  ```
+  GET http://localhost:6080/init/
+  
+  
+  ###
+  ```
+
+- создание заказа
+  ```
+  POST http://localhost:6080/order/create/
+  Content-Type: application/x-www-form-urlencoded
+  
+  products[]=1&products[]=2&products[]=3
+  
+  
+  ###
+  ```
+
+- оплата
+  ```
+  POST http://localhost:6080/payment/create/
+  Content-Type: application/x-www-form-urlencoded
+    
+  orderId=1&price=227.18
+    
+    
+  ###
+  ```

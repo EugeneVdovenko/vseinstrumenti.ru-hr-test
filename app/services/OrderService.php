@@ -37,10 +37,25 @@ class OrderService extends AbstractService
     {
         $order = new Order();
         $order->setStatus(OrderStatus::STATUS_NEW);
-
+        $order->setProducts($products);
         $this->em->persist($order);
         $this->em->flush();
 
         return $order;
+    }
+
+    /**
+     * Подсчет суммы заказа
+     *
+     * @param Order $order
+     * @return float
+     */
+    public function getAmount(Order $order)
+    {
+        $products = $order->getProducts()->toArray();
+        return array_reduce($products, function ($sum, Product $product) {
+            $sum += $product->getPrice();
+            return $sum;
+        }, 0);
     }
 }
